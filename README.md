@@ -12,20 +12,20 @@ Buat deploy ke PWS itu login dulu pake sso, terus create new project dgn nama pe
 
 . . .
  
-### Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
+## Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
 
 foto bagannya ada di sini: https://drive.google.com/drive/folders/1R-NvBxykXzDVgTCbXBLNG2LXV400J4qX?usp=drive_link
 penjelasannya: user sbg client kirim request ke server django melalui browser, terus dari urls.py itu si django cek url nya, lalu diarahkan ke view yang sesuai yg ada di views.py. views.py ini menjalankan logika appsnya, trus lanjut deh ke models.py di mana akses dan operasi pada database-nya diatur. lalu views.py menerima hasil dari model, yang kemudian diteruskan ke templates. nah di templates, lebih tepatnya di home.html itu dia format data jadi tampilan halaman webnya. Nah, halaman webnya dikirim lagi deh ke browser user yang menjadi response atas request si user.
 
 . . .
 
-#### Jelaskan peran settings.py dalam proyek Django!
+## Jelaskan peran settings.py dalam proyek Django!
 
 settings.py itu ibarat pusat pengaturan di Django. Di file ini kita menentukan konfigurasi penting seperti database yang dipakai, daftar aplikasi yang dijalankan, middleware, sampai lokasi file statis dan template. Kalau file ini nggak ada, Django bakal bingung harus nyambung ke database mana, aplikasi apa aja yang aktif, dan di mana nyari file HTML maupun aset pendukung lainnya.
 
 . . .
 
-##### Bagaimana cara kerja migrasi database di Django?
+## Bagaimana cara kerja migrasi database di Django?
 
 Pertama, kita bikin atau ubah isi file models.py.
 Setelah itu jalanin perintah [python manage.py makemigrations]. Nah, di tahap ini Django bakal nyiapin file migrasi, yaitu semacam catatan instruksi buat ngubah database.
@@ -34,13 +34,13 @@ Intinya, proses migrasi ini biar struktur database selalu sesuai sama kode yang 
 
 . . .
 
-###### Menurut Anda, dari semua framework yang ada, mengapa framework Django dijadikan permulaan pembelajaran pengembangan perangkat lunak?
+## Menurut Anda, dari semua framework yang ada, mengapa framework Django dijadikan permulaan pembelajaran pengembangan perangkat lunak?
 
 Django cocok dijadikan framework pertama karena sejak awal sudah dilengkapi fitur-fitur penting seperti autentikasi, admin panel, dan keamanan. Hal tersebut memudahkan kita sebagai pemula agar tidak perlu membangun semuanya dari nol. Dokumentasi yang jelas serta komunitas yang luas juga membuat proses belajar lebih terarah. Dengan konsep MVT yang terstruktur, alur pengembangan web menjadi lebih mudah dipahami sekaligus relevan dengan kebutuhan industri. Oleh karena itu, Django sering dipilih sebagai framework awal dalam mempelajari web development.
 
 . . .
 
-###### Apakah ada feedback untuk asisten dosen tutorial 1 yang telah kamu kerjakan sebelumnya?
+## Apakah ada feedback untuk asisten dosen tutorial 1 yang telah kamu kerjakan sebelumnya?
 
 Pada sesi tutorial 1 di minggu kedua, asisten dosen cukup responsif dan menjelaskan dengan baik, sehingga membantu ketika ada masalah saat pengerjaan. Namun, ketika menghadapi kendala di luar sesi tutorial, respon yang diberikan cenderung lebih lama. Secara keseluruhan, jalannya sesi sudah cukup baik meskipun masih ada beberapa kendala.
 

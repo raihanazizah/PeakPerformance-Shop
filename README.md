@@ -15,6 +15,7 @@ Buat deploy ke PWS itu login dulu pake sso, terus create new project dgn nama pe
 ## Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
 
 foto bagannya ada di sini: https://drive.google.com/drive/folders/1R-NvBxykXzDVgTCbXBLNG2LXV400J4qX?usp=drive_link
+
 penjelasannya: user sbg client kirim request ke server django melalui browser, terus dari urls.py itu si django cek url nya, lalu diarahkan ke view yang sesuai yg ada di views.py. views.py ini menjalankan logika appsnya, trus lanjut deh ke models.py di mana akses dan operasi pada database-nya diatur. lalu views.py menerima hasil dari model, yang kemudian diteruskan ke templates. nah di templates, lebih tepatnya di home.html itu dia format data jadi tampilan halaman webnya. Nah, halaman webnya dikirim lagi deh ke browser user yang menjadi response atas request si user.
 
 . . .

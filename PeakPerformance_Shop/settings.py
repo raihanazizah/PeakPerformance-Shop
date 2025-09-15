@@ -32,6 +32,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "raihana-nur41-peakperformanceshop.pbp.cs.ui.ac.id"]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://pbp.cs.ui.ac.id/raihana.nur41/peakshop"
+]
 
 # Application definition
 
@@ -60,7 +63,7 @@ ROOT_URLCONF = 'PeakPerformance_Shop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'], # Direktori template global
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

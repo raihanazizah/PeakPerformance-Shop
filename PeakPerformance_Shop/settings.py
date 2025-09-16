@@ -33,7 +33,7 @@ DEBUG = True
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "raihana-nur41-peakperformanceshop.pbp.cs.ui.ac.id"]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://pbp.cs.ui.ac.id/raihana.nur41/peakshop"
+    "https://raihana-nur41-peakshop.pbp.cs.ui.ac.id"
 ]
 
 # Application definition
@@ -63,7 +63,7 @@ ROOT_URLCONF = 'PeakPerformance_Shop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'], # Direktori template global
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

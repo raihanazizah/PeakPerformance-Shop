@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from main.forms import ProductForm
+from main.forms import ProductForm 
 from main.models import Product
 from django.http import HttpResponse
 from django.core import serializers #digunakan untuk translate objek model menjadi format lain seperti dalam fungsi ini adalah XM
@@ -48,8 +48,8 @@ def show_json(request):
 
 def show_xml_by_id(request, product_id):
    try:
-       product_item = Product.objects.get(pk=product_id)
-       xml_data = serializers.serialize("xml", [product_item])
+       product_item = Product.objects.filter(pk=product_id)
+       xml_data = serializers.serialize("xml", product_item)
        return HttpResponse(xml_data, content_type="application/xml")
    except Product.DoesNotExist:
        return HttpResponse(status=404)

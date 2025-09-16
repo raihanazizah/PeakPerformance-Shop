@@ -37,4 +37,3 @@ class MainTest(TestCase):
         )
         # default is_featured harus False
         self.assertFalse(product.is_featured)
-

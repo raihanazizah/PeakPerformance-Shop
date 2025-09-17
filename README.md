@@ -74,7 +74,17 @@ Contohnya gini: kita lagi login di situs bank, terus buka website abal-abal yang
 Nah, Django ngatasin ini dengan csrf_token. Token ini unik dan ditaruh di setiap form. Pas form dikirim balik ke server, Django ngecek apakah tokennya cocok. Kalau nggak cocok, request ditolak. Jadi, tanpa csrf_token, form kita gampang banget dipakai penyerang buat nyuruh server ngelakuin hal-hal yang nggak pernah kita setujuin.
 
 ## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
-pertama aku bikin dulu itu 4 functions di views.py (def itu) untuk show xml dan json, dan juga show xml by id dan show json by id. terus baru tambahin functions itu di urls.py, ditambahinnya tuh di yg import nya yg di atas. trus update home.html biar ada add product dan detail product, nah ini isinya dari kita bikin file html baru yg namanya create_product dan product_detail. jadi nanti di halaman utamanya muncul ada bisa kita add product dan habis itu product yg udh ada bisa di liat detailnya. setelah itu buat forms.py untuk nambahin object product dan fields nya yaitu si 6 atribut itu (nama, harga, dll). setelah itu aku update models.py biar lebih sesuai aja sama toko yg aku buat. setelah itu di migrate. lalu push ke github dan pws. oh iya, cek dengan runserver juga setiap habis buat functions yang di views.py
+pertama aku bikin dulu itu 4 functions di views.py (def itu) untuk show xml dan json, dan juga show xml by id dan show json by id. terus baru tambahin functions itu di urls.py, ditambahinnya tuh di yg import nya yg di atas. trus update home.html biar ada add product dan detail product, nah ini isinya dari kita bikin file html baru yg namanya create_product dan product_detail. jadi nanti di halaman utamanya muncul ada bisa kita add product dan habis itu product yg udh ada bisa di liat detailnya. setelah itu buat forms.py untuk nambahin object product dan fields nya yaitu si 6 atribut itu (nama, harga, dll). setelah itu aku update models.py biar lebih sesuai aja sama toko yg aku buat. setelah itu di migrate. lalu push ke github dan pws. oh iya, cek dengan runserver juga setiap habis buat functions yang di views.py untuk melihat id / pk dari produknya.
 
 ##  Apakah ada feedback untuk asdos di tutorial 2 yang sudah kalian kerjakan?
 Udah lumayan responsif kok, cukup membantu, dan tutor 2 kmarin '"lebih mudah" dari tutor sebelumnya.
+
+## screenshot postman
+<img width="1440" height="900" alt="Screenshot 2025-09-17 at 10 20 09" src="https://github.com/user-attachments/assets/185a20cd-bf3f-40cb-aae7-ba0524228212" />
+<img width="1440" height="900" alt="Screenshot 2025-09-17 at 10 20 48" src="https://github.com/user-attachments/assets/daa9622f-c1aa-409f-8df6-7c18049b426c" />
+<img width="1440" height="900" alt="Screenshot 2025-09-17 at 10 21 16" src="https://github.com/user-attachments/assets/bb3569bc-6403-4d8f-baa9-8c5c47ef9dcf" />
+<img width="1440" height="900" alt="Screenshot 2025-09-17 at 10 21 26" src="https://github.com/user-attachments/assets/4dde8a84-a7cd-4c57-8f49-896cfa8bdc5b" />
+
+
+
+

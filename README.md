@@ -48,3 +48,33 @@ Django cocok dijadikan framework pertama karena sejak awal sudah dilengkapi fitu
 Pada sesi tutorial 1 di minggu kedua, asisten dosen cukup responsif dan menjelaskan dengan baik, sehingga membantu ketika ada masalah saat pengerjaan. Namun, ketika menghadapi kendala di luar sesi tutorial, respon yang diberikan cenderung lebih lama. Secara keseluruhan, jalannya sesi sudah cukup baik meskipun masih ada beberapa kendala.
 
 ...
+# Tugas 3
+
+## Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
+Data delivery itu cara untuk mengirim data antar bagian sistem, misalnya dari tampilan (frontend) ke server (backend), atau antar service. Tanpa ini, tiap bagian bakal jalan sendiri-sendiri dan nggak bisa ngobrol / connect gitu. Bayangin aja kayak kurir paket: kalau ada yang beli barang di toko online (klik Add to Cart), kurir bakal nganterin pesan itu ke gudang (server). Gudang lalu balikin konfirmasi kalau barang udah masuk keranjang. Nah, proses nganterin “pesan” inilah yang disebut data delivery.
+
+Kenapa penting? Pertama, biar tiap bagian sistem bisa kerja terpisah tapi tetap nyambung. Kedua, bikin aplikasi bisa dipakai di banyak device (web, mobile, IoT) dengan format data umum kayak JSON atau XML. Dari sisi performa, kita bisa pilih jalur yang sesuai: HTTP buat request biasa, message queue atau streaming kalau trafik lagi rame biar sistem nggak tumbang. Ada juga mekanisme antrean (kayak Kafka atau RabbitMQ) supaya data aman walaupun server lagi error. Buat keamanan, data delivery biasanya lewat API gateway supaya akses bisa diatur, ada autentikasi, bahkan bisa dibatesin request-nya. Terus kalau ada update, API bisa di-versioning biar aplikasi lama tetap jalan. Bonusnya, UX juga jadi lebih oke, misalnya lewat WebSocket buat live update atau sync offline kalau koneksi jelek.
+
+Jadi intinya, data delivery itu kayak jalur komunikasi antar bagian aplikasi. Tanpa ini, sistem bakal berantakan. Makanya sebelum bikin, perlu ditentuin dulu: format apa yang dipakai, jalurnya lewat apa (REST, GraphQL, MQ), gimana cara handle error, dan jangan lupa lapisan keamanan biar data tetap aman.
+
+## Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
+Menurutku, JSON jauh lebih baik dibanding XML untuk kebanyakan kebutuhan sekarang, terutama di web dan API. JSON tampilannya lebih simpel, ringkas, dan gampang dibaca manusia—nggak kebanyakan tag buka-tutup kayak XML. Selain itu, JSON udah “nyatu” sama JavaScript, jadi gampang banget dipakai di frontend. Parsing JSON juga lebih cepat dan ringan di banyak bahasa pemrograman, makanya hampir semua framework atau library modern (misalnya fetch, axios, atau SDK mobile) langsung support JSON. JSON cocok buat API web/mobile masa kini karena simpel dan efisien, sedangkan XML lebih kepake di sistem lama atau kalau datanya butuh struktur dokumen yang kompleks.
+
+## Jelaskan fungsi dari method is_valid() pada form Django dan mengapa kita membutuhkan method tersebut?
+Di Django, is_valid() itu fungsinya buat ngecek apakah data yang dikirim lewat form udah bener atau belum. Jadi kalau user isi form, Django bakal ngecek: ada datanya nggak, formatnya sesuai nggak (misalnya angka beneran angka, panjang teks nggak kelewat, field wajib diisi nggak kosong), terus kalau kita bikin validasi tambahan di clean_<field>() atau clean(), itu juga dijalankan.
+Kalau semua oke, is_valid() bakal balikin True dan data bersihnya bisa diakses lewat form.cleaned_data. Tapi kalau ada yang salah, dia balikin False dan error-nya bisa ditampilkan ke user lewat form.errors.
+
+Kenapa penting? Karena ini yang bikin data kotor atau salah nggak langsung nyelonong masuk ke database, jadi aman dari error atau data aneh. Selain itu, user juga langsung dapet feedback yang jelas tentang apa yang salah di form mereka. Jadi, is_valid() itu semacam filter utama biar data yang masuk ke sistem kita selalu rapi dan sesuai aturan.
+
+## Mengapa kita membutuhkan csrf_token saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
+Di Django, kita butuh csrf_token buat ngejaga form biar aman dari serangan CSRF (Cross-Site Request Forgery). CSRF itu serangan di mana orang jahat bikin browser kita ngirim request ke website lain tanpa kita sadari. Karena browser otomatis ngirim cookie login kita, server bakal ngira request itu sah, padahal sebenernya disuruh sama penyerang.
+
+Contohnya gini: kita lagi login di situs bank, terus buka website abal-abal yang diam-diam punya form tersembunyi buat transfer uang. Kalau situs bank nggak pakai csrf_token, form itu bisa langsung ke-submit ke bank pake cookie login kita, dan duitnya nyangkut ke rekening penyerang.
+
+Nah, Django ngatasin ini dengan csrf_token. Token ini unik dan ditaruh di setiap form. Pas form dikirim balik ke server, Django ngecek apakah tokennya cocok. Kalau nggak cocok, request ditolak. Jadi, tanpa csrf_token, form kita gampang banget dipakai penyerang buat nyuruh server ngelakuin hal-hal yang nggak pernah kita setujuin.
+
+## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+pertama aku bikin dulu itu 4 functions di views.py (def itu) untuk show xml dan json, dan juga show xml by id dan show json by id. terus baru tambahin functions itu di urls.py, ditambahinnya tuh di yg import nya yg di atas. trus update home.html biar ada add product dan detail product, nah ini isinya dari kita bikin file html baru yg namanya create_product dan product_detail. jadi nanti di halaman utamanya muncul ada bisa kita add product dan habis itu product yg udh ada bisa di liat detailnya. setelah itu buat forms.py untuk nambahin object product dan fields nya yaitu si 6 atribut itu (nama, harga, dll). setelah itu aku update models.py biar lebih sesuai aja sama toko yg aku buat. setelah itu di migrate. lalu push ke github dan pws. oh iya, cek dengan runserver juga setiap habis buat functions yang di views.py
+
+##  Apakah ada feedback untuk asdos di tutorial 2 yang sudah kalian kerjakan?
+Udah lumayan responsif kok, cukup membantu, dan tutor 2 kmarin '"lebih mudah" dari tutor sebelumnya.

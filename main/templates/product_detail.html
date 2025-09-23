@@ -13,8 +13,15 @@
 <br /><br />
 {% endif %}
 
-<p>{{ product.price }}</p> 
-<p>{{ product.description }}</p> 
+<p>{{ product.name }}</p>
+<p>{{ product.content }}</p>
+<p>{{ product.price }}</p>
+<p>{{ product.description }}</p>
 
+{% if product.user %}
+    <p>Author: {{ product.user.username }}</p>
+{% else %}
+    <p>Author: Anonymous</p>
+{% endif %}
 
 {% endblock content %}

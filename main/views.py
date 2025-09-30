@@ -14,18 +14,32 @@ from django.urls import reverse
 @login_required(login_url='/login')
 def home(request):
     filter_type = request.GET.get("filter", "all")
+    category_filter = request.GET.get("category", None)
 
-    if filter_type == "all":
-        product_list = Product.objects.all()
-    else:
-        product_list = Product.objects.filter(user=request.user)
+    product_list = Product.objects.all()
+
+    if filter_type == "my":
+        product_list = product_list.filter(user=request.user)
+
+    if category_filter:
+        product_list = product_list.filter(category=category_filter)
 
     context = {
         'npm': '2406413426',
         'name': 'Raihana Nur Azizah',
         'class': 'PBP D',
         'product_list': product_list,
-        'last_login': request.COOKIES.get('last_login', 'Never')
+        'last_login': request.COOKIES.get('last_login', 'Never'),
+        'categories': [
+            ('apparel', 'Apparel'),
+            ('active_wear', 'Active Wear'),
+            ('footwear', 'Footwear'),
+            ('equipments', 'Equipments'),
+            ('nutrition_supplement', 'Nutrition & Supplement'),
+            ('accessories', 'Accessories'),
+            ('exclusive', 'Exclusive Items'),
+        ],
+        'current_category': category_filter    
     }
 
     return render(request, 'home.html', context)
@@ -115,3 +129,21 @@ def logout_user(request):
     response = HttpResponseRedirect(reverse('main:login'))
     response.delete_cookie('last_login')
     return response
+
+def edit_product(request, id):
+    product = get_object_or_404(Product, pk=id)
+    form = ProductForm(request.POST or None, instance=product)
+    if form.is_valid() and request.method == 'POST':
+        form.save()
+        return redirect('main:home')
+
+    context = {
+        'form': form
+    }
+
+    return render(request, "edit_product.html", context)
+
+def delete_product(request, id):
+    product = get_object_or_404(Product, pk=id)
+    product.delete()
+    return HttpResponseRedirect(reverse('main:home'))

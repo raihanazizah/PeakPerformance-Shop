@@ -5,6 +5,7 @@ https://raihana-nur41-peakshop.pbp.cs.ui.ac.id/
 upd: https://raihana-nur41-peakshop.pbp.cs.ui.ac.id/
 
 ...
+# Tugas 2
 
 ## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 
@@ -48,6 +49,7 @@ Django cocok dijadikan framework pertama karena sejak awal sudah dilengkapi fitu
 Pada sesi tutorial 1 di minggu kedua, asisten dosen cukup responsif dan menjelaskan dengan baik, sehingga membantu ketika ada masalah saat pengerjaan. Namun, ketika menghadapi kendala di luar sesi tutorial, respon yang diberikan cenderung lebih lama. Secara keseluruhan, jalannya sesi sudah cukup baik meskipun masih ada beberapa kendala.
 
 ...
+
 # Tugas 3
 
 ## Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
@@ -85,6 +87,8 @@ Udah lumayan responsif kok, cukup membantu, dan tutor 2 kmarin '"lebih mudah" da
 <img width="1440" height="900" alt="Screenshot 2025-09-17 at 10 21 16" src="https://github.com/user-attachments/assets/bb3569bc-6403-4d8f-baa9-8c5c47ef9dcf" />
 <img width="1440" height="900" alt="Screenshot 2025-09-17 at 10 21 26" src="https://github.com/user-attachments/assets/4dde8a84-a7cd-4c57-8f49-896cfa8bdc5b" />
 
+# Tugas 4
+
 ## Apa itu Django AuthenticationForm? Jelaskan juga kelebihan dan kekurangannya.
 AuthenticationForm itu form bawaan Django untuk proses login. Form ini memvalidasi username dan password yang dimasukkan user dengan data yang tersimpan di database (model User).
 Biasanya dipakai di views.LoginView atau form login kustom kayak views.py yang dibuat sekarang.
@@ -102,5 +106,81 @@ Pakai cookies itu nggak otomatis aman. Data di dalamnya bisa dicuri lewat serang
 ## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 Pertama aku aktifin env, eh virtual environment itu. Terus aku buat fungsi registrasi di views.py yang ada di main. Lalu aku buat file baru namanya register.html di templates dalam subdirektory main. Setelah itu aku impor fungsi dan nambahin path url untuk si register ini di urls.py yang ada di main. Nah terus aku ulang lagi semua step itu buat bikin fungsi login dan logut. Jadi nanti ada file baru jg di templates dalam main itu namanya login.html dan logout.html. Setelah itu aku restriksi akses ke halaman main dan product detail nya. Aku tambahin import login required ke views.py di main terus tambahin ini [@login_required(login_url='/login')] di atas fungsi home dan show_product yang ada di dalam views.py tadi. Habis itu jalanin [python manage.py runserver]. Terus buka deh http://localhost:8000/ di web browser buat lihat tampilan baru dari halaman utamanya. Habis itu aku coba buat 2 akun dummy (bikinnya pakai yg register itulo) yang tiap akunnya tuh bikin 3 produk. Setelah itu aku logout. Habis itu aku import HttpResponseRedirect, reverse, dan datetime. Terus aku ganti bagian kode di fungsi login_user buat menyimpan cookie baru bernama last_login yang berisi timestamp terakhir kali pengguna melakukan login. Habis itu aku tambahin potongan kode 'last_login': request.COOKIES['last_login'] ke dalam variabel context yang ada di fungsi home dalam vies.py di dalam main. Lalu aku ganti juga fungsi logout_user buat menghapus cookie last_login setelah melakukan logout. Trus aku tambahin kode kayak buat kasih info sesi terakhir loginnya kapan di home.html yang ada di templates yang ada di main. Terus buat hubungin product sama user, aku tambahin import user ke dalam models.py yang ada di main. Lalu tambahin kode ini [user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)] ke dalam class Product yang ada di models.py tadi. Nah karena udh edit2 models.py, jadi aku migrasi model pakai python manage.py makemigrations. Terus jalanin migrasi model dengan python manage.py migrate. Habis itu edit2 fungsi create_product yg ada di views.py yg ada di main biar dia bisa ada product entry dan product user. Disini nih jd beneran terhubung antara product dan usernya. Edit juga fungsi home biar ada filter_type untuk product_list nya. Setelah itu tambahin tombol filter My Products dan All Products di home.html. Terus tampilin nama author di product_details.html nya.
 Nah aku balik lg ke halaman web yang tadi tuh yg udh aku logout. Terus disitu aku login lagi pake akun dummy nya, nah buat lagi 3 produk untuk tiap akun dummy deh. Terus di cek lagi pak klik my products ada atau engga produk yg udh di add tadii. Selesai dehh.
+
+# Tugas 5
+
+## Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+Urutan prioritas pengambilan CSS Selector itu sebutannya Specificity. Jadi di dalam CSS, urutan prioritas aturan ditentukan oleh tingkat spesifisitasnya. Tingkat pertama dengan prioritas tertinggi adalah inline style yang ditulis langsung pada atribut style elemen. Tingkat kedua adalah selector berbasis ID, karena ID dianggap unik dalam dokumen. Tingkat ketiga ditempati oleh selector berbasis class, attribute selector, serta pseudo-class seperti :hover atau :nth-child. Tingkat keempat dengan prioritas paling rendah adalah selector berbasis elemen/tag (misalnya p, div, h1) dan pseudo-element seperti ::before atau ::after. Jika ada beberapa aturan dengan tingkat yang sama, maka yang digunakan adalah aturan yang ditulis paling akhir dalam kode CSS. Selain itu, aturan yang diberi tanda !important akan mengalahkan semua aturan lain di semua tingkat, kecuali ada aturan lain yang juga menggunakan !important, maka kembali diputuskan berdasarkan spesifisitas dan urutan penulisan.
+
+## Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design, serta jelaskan mengapa!
+Responsive design merupakan konsep penting dalam pengembangan aplikasi web karena pengguna kini mengakses internet melalui berbagai perangkat dengan ukuran layar yang berbeda, mulai dari komputer, tablet, hingga ponsel. Dengan menerapkan responsive design, tampilan web dapat menyesuaikan diri secara otomatis terhadap ukuran layar yang digunakan, sehingga pengalaman pengguna tetap nyaman dan konsisten. Tanpa desain yang responsif, pengguna perangkat dengan layar kecil akan kesulitan membaca teks, menekan tombol, atau harus sering melakukan perbesaran dan pengguliran, yang pada akhirnya dapat menurunkan minat mereka untuk menggunakan aplikasi tersebut.
+Sebagai contoh, Pinterest telah mengadopsi responsive design dengan baik. Pada tampilan desktop, pengguna dapat melihat banyak pin(image) tersusun dalam grid dengan beberapa kolom, sementara pada tampilan ponsel, jumlah kolom otomatis berkurang dan tata letak disusun lebih sederhana agar sesuai dengan ukuran layar. Hal ini memastikan Pinterest tetap nyaman digunakan di berbagai perangkat. Sebaliknya, beberapa situs lama, seperti portal pemerintah atau media berita jadul, masih belum menerapkan desain responsif. Ketika dibuka melalui ponsel, teks terlihat kecil, tata letak melebar ke samping, dan pengguna harus melakukan pengguliran horizontal atau zoom manual, yang tentu menyulitkan.
+Dengan demikian, penerapan responsive design menjadi krusial karena berhubungan langsung dengan aspek kenyamanan, keterjangkauan, dan keberlangsungan penggunaan aplikasi web.
+
+## Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+Margin itu ruang di luar elemen, yaitu jarak antara elemen dengan elemen lain di sekitarnya. Bisa dianggap sebagai “ruang bebas” yang bikin elemen nggak terlalu nempel dengan elemen lain.
+Implementasi margin di CSS:
+.box {
+  margin-top: 15px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+}
+
+Border itu garis tepi elemen yang berada di antara margin dan padding. Border biasanya dipakai buat kasih bingkai visual di sekitar elemen.
+Implementasi broder di CSS:
+.box {
+  border-top: 3px dashed red;   /* garis atas merah putus-putus */
+  border-bottom: 5px dotted blue; /* garis bawah biru titik-titik */
+  border: 2px solid black; /* garis tepi hitam tebal 2px */
+}
+
+Padding itu ruang di dalam elemen, yaitu jarak antara konten (misalnya teks atau gambar) dengan border elemen. Jadi padding ngatur “nafas” di dalam kotak agar isinya nggak terlalu nempel sama tepi.
+Implementasi padding di CSS:
+.box {
+  padding-top: 10px; /* jarak konten ke border 10px di sisi atas*/
+  padding-right: 20px;
+  padding-bottom: 15px;
+  padding-left: 25px;
+}
+
+Gambaran box model untuk implementasi ketiganya:
+[ MARGIN ]
+  [ BORDER ]
+    [ PADDING ]
+      [ CONTENT ]
+
+di mana Content itu isi kotaknya (teks, gambar, dll.). Padding itu jarak isi dengan tepi kotak. Border itu garis tepi kotak. Margin itu jarak antar kotak (elemen lain).
+
+Implementasi ketiganya di CSS:
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .box {
+      margin: 20px;              /* jarak antar elemen */
+      border: 3px solid blue;    /* bingkai biru */
+      padding: 15px;             /* jarak isi ke bingkai */
+      background-color: lightgray;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    Ini contoh box dengan margin, border, dan padding.
+  </div>
+</body>
+</html>
+Hasilnya => kotak abu-abu dengan teks di dalamnya, ada ruang di dalam (padding), dibatasi garis biru (border), dan ada jarak dengan elemen lain di luar (margin).
+
+
+##  Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+Flexbox atau Flexible Box Layout adalah sistem layout satu dimensi di CSS yang berfungsi untuk mengatur elemen dalam satu arah, baik secara horizontal (baris) maupun vertikal (kolom). Flexbox memudahkan pengembang dalam menyusun elemen agar sejajar, menyesuaikan ukuran secara fleksibel, dan menjaga tata letak tetap rapi meskipun ukuran layar berubah. Karena sifatnya satu dimensi, Flexbox sangat cocok digunakan untuk komponen kecil seperti navigasi, tombol yang disusun sejajar, atau card dalam satu baris. Flexbox = fokus 1 dimensi (hanya baris atau kolom saja).
+
+CSS Grid Layout adalah sistem layout dua dimensi yang memungkinkan pengaturan elemen dalam baris dan kolom secara bersamaan. Grid memberikan kontrol penuh untuk membuat struktur halaman yang kompleks dan terorganisir, misalnya membangun layout dengan header, sidebar, konten utama, dan footer. Grid sangat efektif untuk membuat desain berbasis grid seperti galeri, dashboard, atau layout majalah online. Grid = fokus 2 dimensi (baris dan kolom).
+
+Secara sederhana, perbedaan utama keduanya adalah Flexbox lebih cocok untuk tata letak dalam satu arah, sedangkan Grid lebih tepat digunakan untuk kerangka besar yang melibatkan baris dan kolom sekaligus. Nah, biasanya pengembang web pakai Grid buat bikin kerangka halaman utama, terus di dalam kotak-kotak Grid itu pakai Flexbox lagi buat ngerapiin isi kecilnya.
+
+##  Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
 
 

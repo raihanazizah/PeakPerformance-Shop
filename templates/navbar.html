@@ -16,16 +16,16 @@
 
         <!-- Category Dropdown -->
         <div class="relative group">
-            <button class="text-gray-600 hover:text-pink-600 font-medium transition-colors">
-                Categories
-            </button>
-            <div class="absolute hidden group-hover:block mt-2 bg-white border border-pink-200 rounded shadow-lg w-48 z-50">
-                {% for cat_value, cat_name in categories %}
-                    <a href="?category={{ cat_value }}" class="block px-4 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600">
-                        {{ cat_name }}
-                    </a>
-                {% endfor %}
-            </div>
+          <button class="text-gray-600 hover:text-pink-600 font-medium transition-colors">
+            Categories
+          </button>
+          <div class="absolute hidden group-hover:block mt-2 bg-white border border-pink-200 rounded shadow-lg w-48 z-50">
+            {% for cat_value, cat_name in categories %}
+              <a href="{% url 'main:home' %}?filter={{ cat_value }}" class="block px-4 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600">
+                {{ cat_name }}
+              </a>
+            {% endfor %}
+          </div>
         </div>
 
         <!-- Launch Product -->
@@ -47,9 +47,7 @@
           <a href="{% url 'main:logout' %}" class="text-pink-600 hover:text-pink-700 font-medium transition-colors">Logout</a>
         {% else %}
           <a href="{% url 'main:login' %}" class="text-gray-600 hover:text-pink-600 font-medium transition-colors">Login</a>
-          <a href="{% url 'main:register' %}" class="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-lg font-medium transition transform hover:scale-105 shadow-md">
-            Register
-          </a>
+          <a href="{% url 'main:register' %}" class="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-lg font-medium transition transform hover:scale-105 shadow-md">Register</a>
         {% endif %}
       </div>
 
@@ -58,9 +56,9 @@
         <button class="mobile-menu-button p-2 text-gray-600 hover:text-pink-600 transition-colors">
           <span class="sr-only">Open menu</span>
           <div class="w-6 h-6 flex flex-col justify-center items-center">
-            <span class="bg-current block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm"></span>
-            <span class="bg-current block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm my-0.5"></span>
-            <span class="bg-current block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm"></span>
+            <span class="bg-current block h-0.5 w-6 rounded-sm"></span>
+            <span class="bg-current block h-0.5 w-6 rounded-sm my-0.5"></span>
+            <span class="bg-current block h-0.5 w-6 rounded-sm"></span>
           </div>
         </button>
       </div>
@@ -68,23 +66,24 @@
     </div>
   </div>
 
-      <!-- Mobile Menu -->
-    <div class="mobile-menu hidden md:hidden bg-white border-t border-pink-200">
-        <div class="px-6 py-4 space-y-4">
+  <!-- Mobile Menu -->
+  <div class="mobile-menu hidden md:hidden bg-white border-t border-pink-200">
+    <div class="px-6 py-4 space-y-4">
 
-            <!-- Mobile Navigation Links -->
-            <a href="{% url 'main:home' %}" class="block text-gray-600 hover:text-pink-600 font-medium py-3 transition-colors">
-                Home
-            </a>
+      <!-- Mobile Navigation Links -->
+      <a href="{% url 'main:home' %}" class="block text-gray-600 hover:text-pink-600 font-medium py-3 transition-colors">Home</a>
 
-            <!-- Mobile Category Links -->
-            <div class="space-y-1 border-t border-pink-200 pt-2">
-                {% for cat_value, cat_name in categories %}
-                    <a href="?category={{ cat_value }}" class="block text-gray-600 hover:text-pink-600 font-medium py-2 px-4 transition-colors">
-                        {{ cat_name }}
-                    </a>
-                {% endfor %}
-            </div>
+      <!-- Mobile Category Links -->
+      <div class="space-y-1 border-t border-pink-200 pt-2">
+        {% for cat_value, cat_name in categories %}
+          <a href="{% url 'main:home' %}?filter={{ cat_value }}" class="block text-gray-600 hover:text-pink-600 font-medium py-2 px-4 transition-colors">
+            {{ cat_name }}
+          </a>
+        {% endfor %}
+      </div>
+
+      <!-- Launch Product -->
+      <a href="{% url 'main:create_product' %}" class="block text-gray-600 hover:text-pink-600 font-medium py-3 transition-colors">Launch Product</a>
 
       <!-- Mobile User Section -->
       <div class="border-t border-pink-200 pt-4">

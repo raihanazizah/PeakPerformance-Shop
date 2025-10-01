@@ -182,5 +182,9 @@ CSS Grid Layout adalah sistem layout dua dimensi yang memungkinkan pengaturan el
 Secara sederhana, perbedaan utama keduanya adalah Flexbox lebih cocok untuk tata letak dalam satu arah, sedangkan Grid lebih tepat digunakan untuk kerangka besar yang melibatkan baris dan kolom sekaligus. Nah, biasanya pengembang web pakai Grid buat bikin kerangka halaman utama, terus di dalam kotak-kotak Grid itu pakai Flexbox lagi buat ngerapiin isi kecilnya.
 
 ##  Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
-
+Buat awalnya pilih dulu gitu mau pake framework apa, karena lebih pengen customization yg ga ribet, aku pilihnya tailwind. terus baru deh script CDN dari tailwind ke aplikasi lewat kode yang di base.html kayak gini [
+<script src="https://cdn.tailwindcss.com">
+]. Setelah itu, buat bikin fitur edit dan delete itu sama kayak bikin fitur sebelum-sebelumnya. Caranya itu bikin function baru di views.py yang namanya edit_product dan delete_product. Setelah buat itu, bikin juga edit_product.html. di templates yang ada di main. Lalu tambahin deh / import edit_product dan delete_product ke urls.py, terus tambahin path nya juga buat mereka. Nah, edit juga product_list yang looping itu di home.html buat munculin tombol Edit dan Delete. 
+Sekarang mau buat navigation bar, bikin navbar.html di templates yang ada di root directory. Configure juga static files pada aplikasinya di settings.py bagian middleware, tambahkan white noise middleware. Configure juga STATIC_ROOT, STATICFILES_DIRS, dan STATIC_URL di settings.py tadi.
+Nah, buat stylingnya, aku mau buat temanya kayak sporty tapi coquette gitulo, jadi pink tapi masih sporty. Pertama bikin dulu folder static di root directory, trus di dalem folder static dibuat folder css yang isinya global.css. Trus buat hubungin global.css sama framework tailwind yang aku pakai, edit base.html biar ada cdn tailwind nya. Nah, abis itu baru deh tambahin custom styling ke global.css. Trus aku juga customize navbar.html, login.html, register.html, card_product.html, detail_product.html, create_product.html, dan edit.product.html.
 

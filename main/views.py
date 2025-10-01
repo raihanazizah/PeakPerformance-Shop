@@ -11,18 +11,26 @@ import datetime
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
+CATEGORY_CHOICES = [
+        ('apparel', 'Apparel'),
+        ('active_wear', 'Active Wear'),
+        ('footwear', 'Footwear'),
+        ('equipments', 'Equipments'),
+        ('nutrition_supplement', 'Nutrition & Supplement'),
+        ('accessories', 'Accessories'),
+        ('exclusive', 'Exclusive Items'),
+    ]
+
 @login_required(login_url='/login')
 def home(request):
     filter_type = request.GET.get("filter", "all")
-    category_filter = request.GET.get("category", None)
 
     product_list = Product.objects.all()
 
-    if filter_type == "my":
-        product_list = product_list.filter(user=request.user)
-
-    if category_filter:
-        product_list = product_list.filter(category=category_filter)
+    if filter_type == "all":
+        product_list = Product.objects.all()
+    else:
+        product_list = Product.objects.filter(category=filter_type)
 
     context = {
         'npm': '2406413426',
@@ -30,16 +38,7 @@ def home(request):
         'class': 'PBP D',
         'product_list': product_list,
         'last_login': request.COOKIES.get('last_login', 'Never'),
-        'categories': [
-            ('apparel', 'Apparel'),
-            ('active_wear', 'Active Wear'),
-            ('footwear', 'Footwear'),
-            ('equipments', 'Equipments'),
-            ('nutrition_supplement', 'Nutrition & Supplement'),
-            ('accessories', 'Accessories'),
-            ('exclusive', 'Exclusive Items'),
-        ],
-        'current_category': category_filter    
+        'categories': CATEGORY_CHOICES,
     }
 
     return render(request, 'home.html', context)

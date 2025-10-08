@@ -3,7 +3,7 @@
 {% load humanize %}
 
 {% block meta %}
-<title>{{ product.title }} - Peak Performance Shop</title>
+<title>{{ product.name }} - Peak Performance Shop</title>  
 {% endblock meta %}
 
 {% block content %}
@@ -54,7 +54,7 @@
 
         <div class="flex flex-wrap items-center text-sm text-gray-500 gap-4">
           <time datetime="{{ product.created_at|date:'c' }}">
-            {{ product.created_at|date:"M j, Y g:i A" }}
+            {{ product.created_at|date:"M j, Y" }}  <!-- Fixed: removed time since model doesn't store time -->
           </time>
           <span class="inline-flex items-center gap-1">
             👀 {{ product.product_views }} views
@@ -66,16 +66,23 @@
       {% if product.thumbnail %}
       <div class="px-6 sm:px-10 mb-6">
         <img src="{{ product.thumbnail }}" 
-             alt="{{ product.title }}" 
+             alt="{{ product.name }}"  <!-- Fixed: product.name bukan product.title -->
              class="w-full h-72 sm:h-96 object-cover rounded-2xl border border-pink-200 shadow-md">
       </div>
       {% endif %}
 
-      <!-- Content -->
-      {% if product.content %}
-      <div class="px-6 sm:px-10 pb-8">
-        <div class="text-gray-700 text-lg leading-relaxed whitespace-pre-line">
-          {{ product.content }}
+      <!-- Action Buttons for Product Owner -->
+      {% if user.is_authenticated and product.user == user %}
+      <div class="px-6 sm:px-10 pb-6 border-t border-pink-100 pt-6">
+        <div class="flex space-x-4">
+          <button onclick="openEditProductModal({{ product.id }})" 
+                  class="bg-pink-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-pink-600 transition-colors">
+            ✏️ Edit Product
+          </button>
+          <button onclick="openDeleteModal({{ product.id }})" 
+                  class="bg-red-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-red-600 transition-colors">
+            🗑️ Delete Product
+          </button>
         </div>
       </div>
       {% endif %}
@@ -100,4 +107,56 @@
     </article>
   </div>
 </div>
+
+<script>
+  // Include modal functions for edit/delete
+  function openEditProductModal(productId) {
+    // Redirect to home and open modal (since we're on detail page)
+    window.location.href = "{% url 'main:home' %}#edit-" + productId;
+  }
+
+  function openDeleteModal(productId) {
+    if (confirm('Are you sure you want to delete this product?')) {
+      showLoading();
+      fetch(`/delete-product-ajax/${productId}/`, {
+        method: "DELETE",
+        headers: {
+          'X-CSRFToken': getCookie('csrftoken'),
+        },
+      })
+      .then(response => response.json())
+      .then(result => {
+        hideLoading();
+        if (result.status === 'success') {
+          showToast('Product deleted successfully!', 'Success', 'success');
+          setTimeout(() => {
+            window.location.href = "{% url 'main:home' %}";
+          }, 1000);
+        } else {
+          showError(result.message || 'Failed to delete product');
+        }
+      })
+      .catch(error => {
+        hideLoading();
+        showError('Network error occurred');
+      });
+    }
+  }
+
+  // Utility function to get CSRF token
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+</script>
 {% endblock content %}

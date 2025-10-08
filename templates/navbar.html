@@ -28,10 +28,10 @@
           </div>
         </div>
 
-        <!-- Launch Product -->
-        <a href="{% url 'main:create_product' %}" class="text-gray-600 hover:text-pink-600 font-medium transition-colors">
-          Launch Product
-        </a>
+        <!-- Add Product Button -->
+        <button onclick="openAddProductModal()" class="text-gray-600 hover:text-pink-600 font-medium transition-colors">
+          Add Product
+        </button>
       </div>
 
       <!-- Desktop User Section -->
@@ -44,7 +44,7 @@
               {% if user.profile.class_name %}{{ user.profile.class_name }}{% else %}Class{% endif %}
             </div>
           </div>
-          <a href="{% url 'main:logout' %}" class="text-pink-600 hover:text-pink-700 font-medium transition-colors">Logout</a>
+          <button onclick="logoutUser()" class="text-pink-600 hover:text-pink-700 font-medium transition-colors">Logout</button>
         {% else %}
           <a href="{% url 'main:login' %}" class="text-gray-600 hover:text-pink-600 font-medium transition-colors">Login</a>
           <a href="{% url 'main:register' %}" class="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-lg font-medium transition transform hover:scale-105 shadow-md">Register</a>
@@ -82,8 +82,8 @@
         {% endfor %}
       </div>
 
-      <!-- Launch Product -->
-      <a href="{% url 'main:create_product' %}" class="block text-gray-600 hover:text-pink-600 font-medium py-3 transition-colors">Launch Product</a>
+      <!-- Add Product -->
+      <button onclick="openAddProductModal()" class="block text-gray-600 hover:text-pink-600 font-medium py-3 transition-colors w-full text-left">Add Product</button>
 
       <!-- Mobile User Section -->
       <div class="border-t border-pink-200 pt-4">
@@ -95,7 +95,7 @@
               {% if user.profile.class_name %}{{ user.profile.class_name }}{% else %}Class{% endif %}
             </div>
           </div>
-          <a href="{% url 'main:logout' %}" class="block text-pink-600 hover:text-pink-700 font-medium py-3 transition-colors">Logout</a>
+          <button onclick="logoutUser()" class="block text-pink-600 hover:text-pink-700 font-medium py-3 transition-colors w-full text-left">Logout</button>
         {% else %}
           <a href="{% url 'main:login' %}" class="block text-gray-600 hover:text-pink-600 font-medium py-3 transition-colors">Login</a>
           <a href="{% url 'main:register' %}" class="block bg-pink-500 hover:bg-pink-600 text-white font-medium py-3 px-4 rounded-lg text-center transition transform hover:scale-105 shadow-md">Register</a>
@@ -107,6 +107,30 @@
   <script>
     const btn = document.querySelector("button.mobile-menu-button");
     const menu = document.querySelector(".mobile-menu");
-    btn.addEventListener("click", () => menu.classList.toggle("hidden"));
+    if (btn && menu) {
+      btn.addEventListener("click", () => menu.classList.toggle("hidden"));
+    }
+
+    // AJAX Logout
+    async function logoutUser() {
+      showLoading();
+      try {
+        const response = await fetch('{% url "main:logout_ajax" %}');
+        const result = await response.json();
+        
+        if (result.status === 'success') {
+          showToast('Goodbye!', 'Logout Successful', 'info');
+          setTimeout(() => {
+            window.location.href = '{% url "main:login" %}';
+          }, 1000);
+        } else {
+          showError('Logout failed');
+        }
+      } catch (error) {
+        showError('Network error occurred');
+      } finally {
+        hideLoading();
+      }
+    }
   </script>
 </nav>

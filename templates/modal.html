@@ -289,4 +289,44 @@
     }
     return cookieValue;
   }
+
+  //bikin ngurutin harga dari termahal ke termurah dan murah ke mahal (abis di klik jd kebalik)
+  async function urutinHarga() {
+    showLoading();
+    try {
+        // Get current sort order from button or toggle
+        const currentSort = document.getElementById('sortButton')?.dataset.sort || 'asc';
+        const newSort = currentSort === 'asc' ? 'desc' : 'asc';
+        
+        const response = await fetch(`/urutin-harga/?sort=${newSort}`, {
+            method: "GET",
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const result = await response.json();
+        
+        if (result.status === 'success') {
+            showToast('Products sorted by price!', 'Success', 'success');
+            loadProducts(currentFilter); // Reload products with current filter
+            // Update button state
+            if (document.getElementById('sortButton')) {
+                document.getElementById('sortButton').dataset.sort = newSort;
+                document.getElementById('sortButton').innerHTML = 
+                    newSort === 'asc' ? '📈 Low to High' : '📉 High to Low';
+            }
+        } else {
+            showError(result.message || 'Failed to sort products');
+        }
+    } catch (error) {
+        showError('Network error occurred: ' + error.message);
+    } finally {
+        hideLoading();
+    }
+ }
 </script>

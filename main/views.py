@@ -353,3 +353,29 @@ def show_json_by_id(request, product_id):
         return HttpResponse(status=404)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+    
+def urutin_harga(request):
+    try:
+        sort_order = request.GET.get('sort', 'asc')
+        
+        if sort_order == 'asc':
+            products = Product.objects.all().order_by('price')
+            message = 'Products sorted by price: Low to High'
+        else:
+            products = Product.objects.all().order_by('-price')
+            message = 'Products sorted by price: High to Low'
+        
+        # Return JSON response instead of rendering template
+        return JsonResponse({
+            'status': 'success',
+            'message': message,
+            'sort_order': sort_order,
+            'product_count': products.count()
+        })
+        
+    except Exception as e:
+        print(f"Error in urutin_harga: {str(e)}")
+        return JsonResponse({
+            'status': 'error',
+            'message': f'Failed to sort products: {str(e)}'
+        }, status=500)

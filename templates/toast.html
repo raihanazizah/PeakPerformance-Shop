@@ -1,0 +1,26 @@
+<!-- Toast Notification -->
+<div id="toast" class="hidden fixed top-4 right-4 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg transform transition-transform duration-300 translate-x-full z-50">
+  <div class="flex items-center space-x-3">
+    <div class="flex-shrink-0">
+      <span id="toastIcon">🎉</span>
+    </div>
+    <div class="flex-1">
+      <h4 id="toastTitle" class="font-semibold"></h4>
+      <p id="toastMessage" class="text-sm opacity-90"></p>
+    </div>
+    <button onclick="hideToast()" class="flex-shrink-0 ml-4 text-white hover:text-gray-200 transition-colors">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  function hideToast() {
+    const toast = document.getElementById('toast');
+    toast.classList.remove('translate-x-0');
+    toast.classList.add('translate-x-full');
+    setTimeout(() => toast.classList.add('hidden'), 300);
+  }
+</script>

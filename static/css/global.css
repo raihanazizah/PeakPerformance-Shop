@@ -1,0 +1,78 @@
+/* Mau buat sporty tapi coquette ini */
+.form-style form input, form textarea, form select {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 2px solid #fad5f2;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    transition: all 0.25s ease;
+}
+
+.form-style form input:focus, form textarea:focus, form select:focus {
+    outline: none;
+    border-color: #F33A6A;
+    box-shadow: 0 0 0 3px rgba(243, 58, 106, 0.3); /*glowing effect pink*/
+}
+
+.form-style input[type="checkbox"] {
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0;
+    border: 2px solid #fad5f2;
+    border-radius: 0.4rem;
+    background-color: white;
+    cursor: pointer;
+    position: relative;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.form-style input[type="checkbox"]:checked {
+    background-color: #F33A6A;
+    border-color: #F33A6A;
+}
+
+.form-style input[type="checkbox"]:checked::after {
+    content: '★'; /*buat bentuk bintang*/
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.form-style input[type="checkbox"]:focus {
+    outline: none;
+    border-color: #F33A6A;
+    box-shadow: 0 0 0 3px rgba(243, 58, 106, 0.2);
+}
+
+/* Hover sporty bounce */
+.form-style input:hover,
+.form-style textarea:hover,
+.form-style select:hover {
+    transform: translateY(-2px);
+}
+
+/*buat register card biar jd bola basket*/
+.form-card {
+  border-radius: 50%;
+  width: 28rem;
+  height: 28rem;
+  background: radial-gradient(circle at center, #FDE2F3 0%, #F33A6A 100%);
+  padding: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(243, 58, 106, 0.2);
+}
+.form-card > div {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  width: 100%;
+}
+

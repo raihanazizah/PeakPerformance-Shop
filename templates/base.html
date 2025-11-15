@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block meta %} {% endblock meta %}
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/global.css' %}"/>
+  </head>
+  <body>
+    {% block content %} 
+    {% endblock content %}
+    
+    <!-- Include modal dan toast -->
+    {% include 'modal.html' %}
+    {% include 'toast.html' %}
+    
+    <!-- Loading dan Error states -->
+    <div id="loadingOverlay" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div class="bg-white rounded-lg p-6 flex items-center space-x-4">
+        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-600"></div>
+        <span class="text-gray-700">Loading...</span>
+      </div>
+    </div>
+
+    <div id="errorState" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div class="bg-white rounded-lg p-6 max-w-sm text-center">
+        <div class="text-red-500 text-4xl mb-4">⚠️</div>
+        <h3 class="text-lg font-semibold text-gray-800 mb-2">Something went wrong</h3>
+        <p class="text-gray-600 mb-4" id="errorMessage">Please try again later.</p>
+        <button onclick="hideError()" class="bg-pink-500 text-white px-4 py-2 rounded-md hover:bg-pink-600 transition-colors">
+          OK
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Loading functions
+      function showLoading() {
+        document.getElementById('loadingOverlay').classList.remove('hidden');
+      }
+
+      function hideLoading() {
+        document.getElementById('loadingOverlay').classList.add('hidden');
+      }
+
+      // Error functions
+      function showError(message = 'Something went wrong') {
+        document.getElementById('errorMessage').textContent = message;
+        document.getElementById('errorState').classList.remove('hidden');
+      }
+
+      function hideError() {
+        document.getElementById('errorState').classList.add('hidden');
+      }
+
+      // Toast functions
+      function showToast(message, title = '', type = 'success') {
+        const toast = document.getElementById('toast');
+        const toastTitle = document.getElementById('toastTitle');
+        const toastMessage = document.getElementById('toastMessage');
+        
+        // Set colors based on type
+        let bgColor = 'bg-green-500';
+        if (type === 'error') bgColor = 'bg-red-500';
+        if (type === 'warning') bgColor = 'bg-yellow-500';
+        if (type === 'info') bgColor = 'bg-blue-500';
+        
+        toast.className = `fixed top-4 right-4 ${bgColor} text-white px-6 py-4 rounded-lg shadow-lg transform transition-transform duration-300 z-50`;
+        
+        toastTitle.textContent = title;
+        toastMessage.textContent = message;
+        
+        toast.classList.remove('hidden', 'translate-x-full');
+        toast.classList.add('translate-x-0');
+        
+        setTimeout(() => {
+          toast.classList.remove('translate-x-0');
+          toast.classList.add('translate-x-full');
+          setTimeout(() => toast.classList.add('hidden'), 300);
+        }, 3000);
+      }
+
+      // Utility function to get CSRF token
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+    </script>
+  </body>
+</html>

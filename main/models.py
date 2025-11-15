@@ -17,9 +17,10 @@ class Product(models.Model):
     price = models.IntegerField()
     description = models.TextField()
     thumbnail = models.URLField()
-    category = models.CharField(max_length=100, choices=CATEGORY_CHOICES, default = 'update')
+    category = models.CharField(max_length=100, choices=CATEGORY_CHOICES, default = 'apparel')
     product_views = models.IntegerField(default=0)
     is_featured = models.BooleanField(default=False) 
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name

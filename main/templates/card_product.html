@@ -52,6 +52,11 @@
       {{ product.description|truncatewords:20 }}
     </p>
 
+    <p class="text-lg font-semibold text-pink-600 mb-4">
+      Rp {{ product.price|intcomma }}
+    </p>
+
+
     <!-- Action Buttons -->
     {% if user.is_authenticated and product.user == user %}
       <div class="flex items-center justify-between pt-4 border-t border-pink-100">

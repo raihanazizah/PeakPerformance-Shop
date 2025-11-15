@@ -75,11 +75,11 @@
       {% if user.is_authenticated and product.user == user %}
       <div class="px-6 sm:px-10 pb-6 border-t border-pink-100 pt-6">
         <div class="flex space-x-4">
-          <button onclick="openEditProductModal({{ product.id }})" 
+          <button onclick="openEditProductModal('{{ product.id }}')" 
                   class="bg-pink-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-pink-600 transition-colors">
             ✏️ Edit Product
           </button>
-          <button onclick="openDeleteModal({{ product.id }})" 
+          <button onclick="openDeleteModal('{{ product.id }}')" 
                   class="bg-red-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-red-600 transition-colors">
             🗑️ Delete Product
           </button>

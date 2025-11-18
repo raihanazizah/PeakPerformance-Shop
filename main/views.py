@@ -430,12 +430,25 @@ def create_product_flutter(request):
         return JsonResponse({"status": "error"}, status=401)
     
 @csrf_exempt
+@login_required(login_url='/login/')
 def json_user_products(request):
-    if request.method == 'GET':
-        # Filter hanya produk milik user yang login
-        if request.user.is_authenticated:
-            products = Product.objects.filter(user=request.user)
-        else:
-            products = Product.objects.none()
-        
-        return HttpResponse(serializers.serialize('json', products), content_type='application/json')
+    products = Product.objects.filter(user=request.user)
+    
+    data = [
+        {
+        'id': p.id,
+        'name': p.name,
+        'price': p.price,
+        'description': p.description,
+        'category': p.category,
+        'thumbnail': p.thumbnail,
+        'product_views': p.product_views,
+        'created_at': p.created_at.isoformat(),
+        'is_featured': p.is_featured,
+        'user_id': p.user_id,
+    }
+    for p in products
+    ]
+
+    return JsonResponse(data, safe=False)
+
